@@ -9,3 +9,12 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
 
     return res.status(201).json(response);
 };
+
+export const findById = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    const userService = container.resolve(UserService);
+    const response = await userService.findById(id);
+
+    return res.status(200).json(response);
+};
