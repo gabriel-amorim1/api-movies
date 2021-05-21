@@ -15,8 +15,11 @@ router.post(
     '/api/user/',
     UserController.create,
 );
+
 router.use('/api/sessions', apiSession);
+
 router.use(authMiddleware);
+
 router.use('/api/user', apiUser);
 
 export default router;
