@@ -1,13 +1,17 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import 'reflect-metadata';
+import app from './app';
 
 import './database/connection';
-import routes from './routes';
+import './containers';
 
-const app = express();
+const PORT = process.env.PORT || 3333;
 
-dotenv.config();
+async function startServer() {
 
-app.use(routes);
+    app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log(`Service running on port ${PORT}`);
+    });
+}
 
-app.listen(3333, () => console.log("Server is running"));
+startServer();
