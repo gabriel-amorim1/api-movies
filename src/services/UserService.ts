@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import bcrypt from 'bcrypt';
 import User from '../database/entities/User';
 import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
 import { CreateUserInterface, UpdateUserInterface, UserRequestGetAllInterface } from '../interfaces/UserInterface';
@@ -50,6 +51,10 @@ class UserService {
 
         if(userUpdate.email && userUpdate.email !== foundUser.email){
             await this.verifyIfEmailIsAlreadyRegistered(userUpdate.email);
+        }
+
+        if (userUpdate.password) {
+            foundUser.password_hash = await bcrypt.hash(userUpdate.password, 8);
         }
 
         return this.userRepository.createAndSave(

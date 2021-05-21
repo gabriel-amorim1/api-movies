@@ -3,9 +3,6 @@ export interface RequestGetAllInterface {
     size?: string;
     sortParam?: string;
     sortOrder?: string;
-    dateFilter?: string;
-    startDateFilter?: string;
-    endDateFilter?: string;
 }
 
 export interface OptionsTypeOrmGetAll extends GetAllWithoutPagination {
