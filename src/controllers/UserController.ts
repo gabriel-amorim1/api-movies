@@ -25,3 +25,13 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 
     return res.status(200).json(response);
 };
+
+export const update = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+    const userUpdate = req.body;
+
+    const userService = container.resolve(UserService);
+    const response = await userService.update(id, userUpdate);
+
+    return res.status(200).json(response);
+};

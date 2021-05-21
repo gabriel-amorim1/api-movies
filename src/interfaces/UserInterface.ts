@@ -6,6 +6,12 @@ export interface CreateUserInterface {
     password: string;
 }
 
+export interface UpdateUserInterface {
+    name?: string;
+    email?: string;
+    password?: string;
+}
+
 export interface UserRequestGetAllInterface extends RequestGetAllInterface {
     name?: string;
     email?: string;

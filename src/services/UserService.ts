@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import User from '../database/entities/User';
 import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
-import { CreateUserInterface, UserRequestGetAllInterface } from '../interfaces/UserInterface';
+import { CreateUserInterface, UpdateUserInterface, UserRequestGetAllInterface } from '../interfaces/UserInterface';
 import { buildFilterGetAll } from '../utils/dataBase/filters';
 import { buildPaginatedGetAll } from '../utils/dataBase/pagination';
 import { HttpError } from '../utils/errors/HttpError';
@@ -14,9 +14,7 @@ class UserService {
     ) {}
 
     public async create(userData: CreateUserInterface): Promise<User> {
-        if (await this.userRepository.findByEmail(userData.email)) {
-            throw new HttpError(400, 'Email already registered.');
-        }
+        await this.verifyIfEmailIsAlreadyRegistered(userData.email);
 
         return this.userRepository.createAndSave(userData);
     }
@@ -29,12 +27,12 @@ class UserService {
         return userFound;
     }
 
-    public async findByEmail(email: string): Promise<User> {
+    public async verifyIfEmailIsAlreadyRegistered(email: string): Promise<void> {
         const user = await this.userRepository.findByEmail(email);
 
-        if (!user) throw new HttpError(404, 'Email not found');
-
-        return user;
+        if (user) {
+            throw new HttpError(400, 'Email already registered.');
+        }
     }
 
     public async getAll(
@@ -45,6 +43,18 @@ class UserService {
         const users = await this.userRepository.getAll(options);
 
         return buildPaginatedGetAll(queryParams, users);
+    }
+
+    public async update(id: string, userUpdate: UpdateUserInterface): Promise<User> {
+        const foundUser = await this.findById(id);
+
+        if(userUpdate.email && userUpdate.email !== foundUser.email){
+            await this.verifyIfEmailIsAlreadyRegistered(userUpdate.email);
+        }
+
+        return this.userRepository.createAndSave(
+            Object.assign(foundUser, { ...userUpdate }),
+        );
     }
 }
 
