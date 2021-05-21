@@ -1,0 +1,7 @@
+{
+  "name": "api-movies",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "gabriel-amorim1 <therealamorim@gmail.com>",
+  "license": "MIT"
+}
