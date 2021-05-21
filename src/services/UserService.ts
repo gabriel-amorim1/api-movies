@@ -12,6 +12,10 @@ class UserService {
     ) {}
 
     public async create(userData: CreateUserInterface): Promise<User> {
+        if (await this.userRepository.findByEmail(userData.email)) {
+            throw new HttpError(400, 'Email already registered.');
+        }
+
         return this.userRepository.createAndSave(userData);
     }
 
@@ -21,6 +25,14 @@ class UserService {
         if (!userFound) throw new HttpError(404, 'User not found');
 
         return userFound;
+    }
+
+    public async findByEmail(email: string): Promise<User> {
+        const user = await this.userRepository.findByEmail(email);
+
+        if (!user) throw new HttpError(404, 'Email not found');
+
+        return user;
     }
 }
 
