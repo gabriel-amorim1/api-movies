@@ -18,3 +18,10 @@ export const findById = async (req: Request, res: Response): Promise<Response> =
 
     return res.status(200).json(response);
 };
+
+export const getAll = async (req: Request, res: Response): Promise<Response> => {
+    const userService = container.resolve(UserService);
+    const response = await userService.getAll(req.query);
+
+    return res.status(200).json(response);
+};

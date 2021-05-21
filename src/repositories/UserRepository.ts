@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import User from "../database/entities/User";
+import { OptionsTypeOrmGetAll } from "../interfaces/pagination";
 import IUserRepository from "../interfaces/repositories.ts/IUserRepository";
 import { CreateUserInterface } from "../interfaces/UserInterface";
 
@@ -22,5 +23,13 @@ export default class UserRepository implements IUserRepository {
 
     public async findByEmail(email: string): Promise<User | undefined> {
         return this.ormRepository.findOne({ email });
+    }
+
+    public async getAll(
+        options: OptionsTypeOrmGetAll,
+    ): Promise<{ data: User[]; count: number }> {
+        const [data, count] = await this.ormRepository.findAndCount(options);
+
+        return { data, count };
     }
 }

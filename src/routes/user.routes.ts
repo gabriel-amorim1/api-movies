@@ -9,6 +9,8 @@ router.post(
     UserController.create,
 );
 
+router.get('/', UserController.getAll);
+
 router.get(
     '/:id',
     UserController.findById,
