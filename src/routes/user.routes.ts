@@ -21,4 +21,14 @@ router.put(
     UserController.update,
 );
 
+router.patch(
+    '/activate/:id',
+    UserController.activate,
+);
+
+router.patch(
+    '/inactivate/:id',
+    UserController.inactivate,
+);
+
 export default router;

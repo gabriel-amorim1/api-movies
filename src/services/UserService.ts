@@ -56,6 +56,22 @@ class UserService {
             Object.assign(foundUser, { ...userUpdate }),
         );
     }
+
+    public async activate(id: string): Promise<void> {
+        const foundUser = await this.findById(id);
+
+        this.userRepository.createAndSave(
+            Object.assign(foundUser, { is_active: true }),
+        );
+    }
+
+    public async inactivate(id: string): Promise<void> {
+        const foundUser = await this.findById(id);
+
+        this.userRepository.createAndSave(
+            Object.assign(foundUser, { is_active: false }),
+        );
+    }
 }
 
 export default UserService;
