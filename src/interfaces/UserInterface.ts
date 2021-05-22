@@ -1,5 +1,17 @@
 import { RequestGetAllInterface } from './pagination';
 
+export interface UserInterface {
+    name: string;
+    email: string;
+
+    id?: string;
+    is_active?: boolean;
+    created_at?: Date;
+    updated_at?: Date;
+    password?: string;
+    password_hash?: string;
+}
+
 export interface CreateUserInterface {
     name: string;
     email: string;
