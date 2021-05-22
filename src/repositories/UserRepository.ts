@@ -1,8 +1,8 @@
-import { getRepository, Repository } from "typeorm";
-import User from "../database/entities/User";
-import { OptionsTypeOrmGetAll } from "../interfaces/pagination";
-import IUserRepository from "../interfaces/repositories.ts/IUserRepository";
-import { CreateUserInterface } from "../interfaces/UserInterface";
+import { getRepository, Repository } from 'typeorm';
+import User from '../database/entities/User';
+import { OptionsTypeOrmGetAll } from '../interfaces/pagination';
+import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
+import { CreateUserInterface } from '../interfaces/UserInterface';
 
 export default class UserRepository implements IUserRepository {
     private ormRepository: Repository<User>;
@@ -17,7 +17,18 @@ export default class UserRepository implements IUserRepository {
         return this.ormRepository.save(user);
     }
 
-    public async findById(id: string): Promise<User | undefined> {
+    public async findById(
+        id: string,
+        showPassword?: boolean,
+    ): Promise<User | undefined> {
+        if (showPassword) {
+            return this.ormRepository
+                .createQueryBuilder('user')
+                .addSelect('user.password_hash')
+                .where('id = :id', { id })
+                .getOne();
+        }
+
         return this.ormRepository.findOne(id);
     }
 

@@ -1,11 +1,17 @@
-import { inject, injectable } from 'tsyringe';
 import bcrypt from 'bcrypt';
+import { inject, injectable } from 'tsyringe';
 import User from '../database/entities/User';
 import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
-import { CreateUserInterface, UpdateUserInterface, UserRequestGetAllInterface } from '../interfaces/UserInterface';
+import {
+    CreateUserInterface,
+    UpdateUserInterface,
+    UserRequestGetAllInterface,
+    UserResponseInterface,
+} from '../interfaces/UserInterface';
 import { buildFilterGetAll } from '../utils/dataBase/filters';
 import { buildPaginatedGetAll } from '../utils/dataBase/pagination';
 import { HttpError } from '../utils/errors/HttpError';
+import * as userView from '../utils/views/users_view';
 
 @injectable()
 class UserService {
@@ -14,26 +20,30 @@ class UserService {
         private userRepository: IUserRepository,
     ) {}
 
-    public async create(userData: CreateUserInterface): Promise<User> {
-        await this.verifyIfEmailIsAlreadyRegistered(userData.email);
-
-        return this.userRepository.createAndSave(userData);
-    }
-
-    public async findById(id: string): Promise<User> {
-        const userFound = await this.userRepository.findById(id);
-
-        if (!userFound) throw new HttpError(404, 'User not found');
-
-        return userFound;
-    }
-
-    public async verifyIfEmailIsAlreadyRegistered(email: string): Promise<void> {
+    private async verifyIfEmailIsAlreadyRegistered(email: string): Promise<void> {
         const user = await this.userRepository.findByEmail(email);
 
         if (user) {
             throw new HttpError(400, 'Email already registered.');
         }
+    }
+
+    public async create(
+        userData: CreateUserInterface,
+    ): Promise<UserResponseInterface> {
+        await this.verifyIfEmailIsAlreadyRegistered(userData.email);
+
+        const createdUser = await this.userRepository.createAndSave(userData);
+
+        return userView.render(createdUser);
+    }
+
+    public async findById(id: string, showPassword?: boolean): Promise<User> {
+        const userFound = await this.userRepository.findById(id, showPassword);
+
+        if (!userFound) throw new HttpError(404, 'User not found');
+
+        return userFound;
     }
 
     public async getAll(
@@ -46,24 +56,29 @@ class UserService {
         return buildPaginatedGetAll(queryParams, users);
     }
 
-    public async update(id: string, userUpdate: UpdateUserInterface): Promise<User> {
-        const foundUser = await this.findById(id);
+    public async update(
+        id: string,
+        updateData: UpdateUserInterface,
+    ): Promise<UserResponseInterface> {
+        const userFound = await this.findById(id, true);
 
-        if(userUpdate.email && userUpdate.email !== foundUser.email){
-            await this.verifyIfEmailIsAlreadyRegistered(userUpdate.email);
+        if (updateData.email && updateData.email !== userFound.email) {
+            await this.verifyIfEmailIsAlreadyRegistered(updateData.email);
         }
 
-        if (userUpdate.password) {
-            foundUser.password_hash = await bcrypt.hash(userUpdate.password, 8);
+        if (updateData.password) {
+            userFound.password_hash = await bcrypt.hash(updateData.password, 8);
         }
 
-        return this.userRepository.createAndSave(
-            Object.assign(foundUser, { ...userUpdate }),
+        const userUpdated = await this.userRepository.createAndSave(
+            Object.assign(userFound, { ...updateData }),
         );
+
+        return userView.render(userUpdated);
     }
 
     public async activate(id: string): Promise<void> {
-        const foundUser = await this.findById(id);
+        const foundUser = await this.findById(id, true);
 
         this.userRepository.createAndSave(
             Object.assign(foundUser, { is_active: true }),
@@ -71,7 +86,7 @@ class UserService {
     }
 
     public async inactivate(id: string): Promise<void> {
-        const foundUser = await this.findById(id);
+        const foundUser = await this.findById(id, true);
 
         this.userRepository.createAndSave(
             Object.assign(foundUser, { is_active: false }),

@@ -1,4 +1,4 @@
-import { RequestGetAllInterface } from "./pagination";
+import { RequestGetAllInterface } from './pagination';
 
 export interface CreateUserInterface {
     name: string;
@@ -15,4 +15,13 @@ export interface UpdateUserInterface {
 export interface UserRequestGetAllInterface extends RequestGetAllInterface {
     name?: string;
     email?: string;
+}
+
+export interface UserResponseInterface {
+    id: string;
+    name: string;
+    email: string;
+    is_active: boolean;
+    created_at: Date;
+    updated_at: Date;
 }
