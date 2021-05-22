@@ -23,6 +23,13 @@
         "prettier"
     ],
     "rules": {
+        "global-require": "off",
+        "class-methods-use-this": "off",
+        "no-restricted-syntax": "off",
+        "no-restricted-globals": "off",
+        "no-underscore-dangle": "off",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
         "no-await-in-loop": 0,
         "no-use-before-define": 0,
         "camelcase": 0,
@@ -48,7 +55,7 @@
         ],
         "max-len": ["error",
         {
-            "code": 100,
+            "code": 300,
             "ignoreStrings": true,
             "ignoreTemplateLiterals": true
         }]

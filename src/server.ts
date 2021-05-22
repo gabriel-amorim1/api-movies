@@ -1,12 +1,13 @@
 import 'reflect-metadata';
 import app from './app';
 
-import './database/connection';
+import connect from './database/connection';
 import './containers';
 
 const PORT = process.env.PORT || 3333;
 
 async function startServer() {
+    connect();
 
     app.listen(PORT, () => {
         // eslint-disable-next-line no-console
