@@ -11,10 +11,9 @@ router.get('/', (req: Request, res: Response) => {
     res.send('API Movies 1.0.0');
 });
 
-router.post(
-    '/api/user/',
-    UserController.create,
-);
+router.post('/api/admin/', UserController.createUserAdmin);
+
+router.post('/api/user/', UserController.create);
 
 router.use('/api/sessions', apiSession);
 

@@ -19,12 +19,13 @@ export default class UserRepository implements IUserRepository {
 
     public async findById(
         id: string,
-        showPassword?: boolean,
+        showHideColumns?: boolean,
     ): Promise<User | undefined> {
-        if (showPassword) {
+        if (showHideColumns) {
             return this.ormRepository
                 .createQueryBuilder('user')
                 .addSelect('user.password_hash')
+                .addSelect('user.is_admin')
                 .where('id = :id', { id })
                 .getOne();
         }
@@ -32,7 +33,19 @@ export default class UserRepository implements IUserRepository {
         return this.ormRepository.findOne(id);
     }
 
-    public async findByEmail(email: string): Promise<User | undefined> {
+    public async findByEmail(
+        email: string,
+        showHideColumns?: boolean,
+    ): Promise<User | undefined> {
+        if (showHideColumns) {
+            return this.ormRepository
+                .createQueryBuilder('user')
+                .addSelect('user.password_hash')
+                .addSelect('user.is_admin')
+                .where('email = :email', { email })
+                .getOne();
+        }
+
         return this.ormRepository.findOne({ email });
     }
 

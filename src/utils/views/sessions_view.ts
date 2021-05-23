@@ -3,9 +3,7 @@ import { authConfig } from '../../config/auth';
 import User from '../../database/entities/User';
 import { SessionResponseInterface } from '../../interfaces/SessionInterface';
 
-export const render = async (
-    user: User,
-): Promise<SessionResponseInterface> => {
+export const render = async (user: User): Promise<SessionResponseInterface> => {
     return {
         user: {
             id: user.id!,
@@ -13,8 +11,12 @@ export const render = async (
             email: user.email,
         },
 
-        token: await jwt.sign({ id: user.id }, process.env.APP_SECRET!, {
-            expiresIn: authConfig.expiresIn,
-        }),
+        token: await jwt.sign(
+            { id: user.id, is_admin: user.is_admin },
+            process.env.APP_SECRET!,
+            {
+                expiresIn: authConfig.expiresIn,
+            },
+        ),
     };
 };

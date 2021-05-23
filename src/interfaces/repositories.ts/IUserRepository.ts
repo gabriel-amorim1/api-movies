@@ -4,7 +4,7 @@ import { UserInterface } from '../UserInterface';
 
 export default interface IUserRepository {
     createAndSave(userData: UserInterface): Promise<User>;
-    findById(id: string, showPassword?: boolean): Promise<User | undefined>;
-    findByEmail(email: string): Promise<User | undefined>;
+    findById(id: string, showHideColumns?: boolean): Promise<User | undefined>;
+    findByEmail(email: string, showHideColumns?: boolean): Promise<User | undefined>;
     getAll(options: OptionsTypeOrmGetAll): Promise<{ data: User[]; count: number }>;
 }

@@ -6,6 +6,7 @@ export interface UserInterface {
 
     id?: string;
     is_active?: boolean;
+    is_admin?: boolean;
     created_at?: Date;
     updated_at?: Date;
     password?: string;
@@ -27,6 +28,7 @@ export interface UpdateUserInterface {
 export interface UserRequestGetAllInterface extends RequestGetAllInterface {
     name?: string;
     email?: string;
+    is_admin?: boolean;
 }
 
 export interface UserResponseInterface {

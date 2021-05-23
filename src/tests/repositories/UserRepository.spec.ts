@@ -30,6 +30,26 @@ describe('User Repository Context', () => {
         expect(createdUser.password_hash).not.toBeUndefined();
     });
 
+    it('should be able to create a new admin', async () => {
+        const userBuild = new UserBuilder()
+            .withName('Create Admin')
+            .withEmail('create@admin.com')
+            .withPassword('password')
+            .withIsAdmin(true)
+            .build();
+
+        const createdUser = await userRepository.createAndSave(userBuild);
+
+        expect(createdUser.id).not.toBeUndefined();
+        expect(createdUser.created_at).not.toBeUndefined();
+        expect(createdUser.updated_at).not.toBeUndefined();
+        expect(createdUser.is_active).toBeTruthy();
+        expect(createdUser.name).toBe(userBuild.name);
+        expect(createdUser.email).toBe(userBuild.email);
+        expect(createdUser.password_hash).not.toBeUndefined();
+        expect(createdUser.is_admin).toBeTruthy();
+    });
+
     it('should be able to find user by id', async () => {
         const createdUser = await makeSut();
 
@@ -38,16 +58,15 @@ describe('User Repository Context', () => {
         expect(createdUser).toEqual(userFound);
     });
 
-    it('should be able to find user by id and returns password_hash', async () => {
+    it('should be able to find user by id and returns hidden columns', async () => {
         const createdUser = await makeSut();
 
-        const { password_hash, ...userFound } = (await userRepository.findById(
-            createdUser.id,
-            true,
-        )) as User;
+        const { password_hash, is_admin, ...userFound } =
+            (await userRepository.findById(createdUser.id, true)) as User;
 
         expect(createdUser).toEqual(userFound);
         expect(password_hash).not.toBeUndefined();
+        expect(is_admin).toBeFalsy();
     });
 
     it('should be able to find user by email', async () => {
@@ -56,6 +75,17 @@ describe('User Repository Context', () => {
         const userFound = await userRepository.findByEmail(createdUser.email);
 
         expect(createdUser).toEqual(userFound);
+    });
+
+    it('should be able to find user by email and returns hidden columns', async () => {
+        const createdUser = await makeSut();
+
+        const { password_hash, is_admin, ...userFound } =
+            (await userRepository.findByEmail(createdUser.email, true)) as User;
+
+        expect(createdUser).toEqual(userFound);
+        expect(password_hash).not.toBeUndefined();
+        expect(is_admin).toBeFalsy();
     });
 
     it('should be able to get all users', async () => {

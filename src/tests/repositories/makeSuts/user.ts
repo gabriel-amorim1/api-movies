@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import {
-    CreateUserInterface,
+    UserInterface,
     UserResponseInterface,
 } from '../../../interfaces/UserInterface';
 import UserRepository from '../../../repositories/UserRepository';
@@ -8,7 +8,7 @@ import { render } from '../../../utils/views/users_view';
 import UserBuilder from '../../testBuilders/UserBuilder';
 
 export default async (
-    userData?: Partial<CreateUserInterface>,
+    userData?: Partial<UserInterface>,
 ): Promise<UserResponseInterface> => {
     const userRepository = new UserRepository();
 

@@ -4,26 +4,16 @@ import * as UserController from '../controllers/UserController';
 
 const router = Router();
 
-router.get('/', UserController.getAll);
+router.get('/profile', UserController.findById);
 
-router.get(
-    '/:id',
-    UserController.findById,
-);
+router.get('/list', UserController.getAll);
 
-router.put(
-    '/:id',
-    UserController.update,
-);
+router.get('/list/admin', UserController.getAllAdmin);
 
-router.patch(
-    '/activate/:id',
-    UserController.activate,
-);
+router.put('/', UserController.update);
 
-router.patch(
-    '/inactivate/:id',
-    UserController.inactivate,
-);
+router.patch('/activate', UserController.activate);
+
+router.patch('/inactivate', UserController.inactivate);
 
 export default router;

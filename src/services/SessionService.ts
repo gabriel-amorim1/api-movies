@@ -16,7 +16,7 @@ class SessionService {
         email: string,
         password: string,
     ): Promise<SessionResponseInterface> {
-        const user = await this.userRepository.findByEmail(email);
+        const user = await this.userRepository.findByEmail(email, true);
 
         if (!user) throw new HttpError(404, 'User not found');
 

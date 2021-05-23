@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe';
 import User from '../database/entities/User';
 import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
 import {
-    CreateUserInterface,
     UpdateUserInterface,
+    UserInterface,
     UserRequestGetAllInterface,
     UserResponseInterface,
 } from '../interfaces/UserInterface';
@@ -28,9 +28,7 @@ class UserService {
         }
     }
 
-    public async create(
-        userData: CreateUserInterface,
-    ): Promise<UserResponseInterface> {
+    public async create(userData: UserInterface): Promise<UserResponseInterface> {
         await this.verifyIfEmailIsAlreadyRegistered(userData.email);
 
         const createdUser = await this.userRepository.createAndSave(userData);

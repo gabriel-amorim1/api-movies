@@ -37,6 +37,11 @@ export default class UserBuilder {
         return this;
     }
 
+    public withIsAdmin(is_admin: boolean): UserBuilder {
+        this.user.is_admin = is_admin;
+        return this;
+    }
+
     public withCreatedAt(createdAt: Date): UserBuilder {
         this.user.created_at = createdAt;
         return this;
