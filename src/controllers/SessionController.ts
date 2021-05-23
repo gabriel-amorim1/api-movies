@@ -2,7 +2,7 @@ import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 import SessionService from '../services/SessionService';
 import { ValidationError } from '../utils/errors/ValidationError';
-import { sessionValidation } from '../utils/session/validators/validator';
+import { sessionValidation } from '../utils/session/validators';
 
 export const create = async (req: Request, res: Response): Promise<Response> => {
     try {

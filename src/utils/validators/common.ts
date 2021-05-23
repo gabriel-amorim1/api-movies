@@ -1,5 +1,9 @@
 import * as yup from 'yup';
 
+export const idParamSchema = yup.object().shape({
+    id: yup.string().uuid().strict(true).required('The property id is required'),
+});
+
 export const getAllRequestSchema = yup.object().shape({
     page: yup.string().strict(true),
     size: yup.string().strict(true),
