@@ -17,6 +17,7 @@ const options = {
         './dist/routes/index.js',
         './dist/routes/user.routes.js',
         './dist/routes/session.routes.js',
+        './dist/routes/movie.routes.js',
     ],
 } as Options;
 

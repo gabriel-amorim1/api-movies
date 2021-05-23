@@ -1,0 +1,109 @@
+{
+    "Movie": {
+        "properties": {
+            "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "fbe188ea-5ade-44dd-9776-eddd8105832e"
+            },
+            "director": {
+                "type": "string",
+                "example": "Frank Darabont"
+            },
+            "name": {
+                "type": "string",
+                "example": "The Shawshank Redemption"
+            },
+            "genre": {
+                "type": "string",
+                "example": "Drama"
+            },
+            "actors": {
+                "type": "string",
+                "example": "Tim Robbins, Morgan Freeman, Bob Gunton"
+            },
+            "created_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            },
+            "updated_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            }
+        }
+    },
+    "MovieCreate": {
+        "required": [
+            "director",
+            "name",
+            "genre",
+            "actors"
+        ],
+        "properties": {
+            "director": {
+                "type": "string",
+                "example": "Frank Darabont"
+            },
+            "name": {
+                "type": "string",
+                "example": "The Shawshank Redemption"
+            },
+            "genre": {
+                "type": "string",
+                "example": "Drama"
+            },
+            "actors": {
+                "type": "string",
+                "example": "Tim Robbins, Morgan Freeman, Bob Gunton"
+            }
+        }
+    },
+    "MovieUpdate": {
+        "properties": {
+            "director": {
+                "type": "string",
+                "example": "Frank Darabont"
+            },
+            "name": {
+                "type": "string",
+                "example": "The Shawshank Redemption"
+            },
+            "genre": {
+                "type": "string",
+                "example": "Drama"
+            },
+            "actors": {
+                "type": "string",
+                "example": "Tim Robbins, Morgan Freeman, Bob Gunton"
+            }
+        }
+    },
+    "MovieGetAll": {
+        "properties": {
+            "data": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Movie"
+                }
+            },
+            "count": {
+                "type": "number",
+                "example": 1
+            },
+            "limit": {
+                "type": "number",
+                "example": 20
+            },
+            "page": {
+                "type": "number",
+                "example": 1
+            },
+            "totalPages": {
+                "type": "number",
+                "example": 1
+            }
+        }
+    }
+}

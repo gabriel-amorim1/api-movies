@@ -115,7 +115,7 @@ router.get('/list/admin', UserController.getAllAdmin);
 
 /**
  * @swagger
- * /api/user/:
+ * /api/user:
  *   put:
  *     tags:
  *       - User and Admin

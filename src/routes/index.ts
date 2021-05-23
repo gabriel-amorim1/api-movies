@@ -6,6 +6,7 @@ import apiUser from './user.routes';
 import * as UserController from '../controllers/UserController';
 import authMiddleware from '../utils/middleware/auth';
 import apiSession from './session.routes';
+import apiMovie from './movie.routes';
 
 const router = Router();
 
@@ -93,5 +94,6 @@ router.use('/api/sessions', apiSession);
 router.use(authMiddleware);
 
 router.use('/api/user', apiUser);
+router.use('/api/movie', apiMovie);
 
 export default router;
