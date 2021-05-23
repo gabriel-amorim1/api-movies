@@ -21,7 +21,7 @@ class SessionService {
         if (!user) throw new HttpError(404, 'User not found');
 
         if (!(await user.checkPassword(password))) {
-            throw new HttpError(401, 'Password does no match');
+            throw new HttpError(400, 'Password does no match');
         }
 
         return sessionView.render(user);

@@ -1,3 +1,3 @@
 import 'reflect-metadata';
 
-process.env.ENVIRONMENT = 'TEST';
+process.env.APP_SECRET = 'tests';

@@ -15,7 +15,7 @@ describe('User Service context', () => {
         userService = makeUserService;
     });
 
-    const makeSut = (
+    const makeSut = async (
         userData?: Partial<UserInterface>,
     ): Promise<UserResponseInterface> => {
         const userBuild = new UserBuilder()

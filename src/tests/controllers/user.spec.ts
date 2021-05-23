@@ -17,7 +17,7 @@ describe('User Route context', () => {
         userServiceSpy = sinon.createStubInstance(UserService);
     });
 
-    it('should be call create controller with user data and returns status 201', async () => {
+    it('should call create controller with user data and returns status 201', async () => {
         const userData = new UserBuilder()
             .withName('Gabriel')
             .withEmail('gabriel@teste.com')
@@ -74,7 +74,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.create.notCalled).toBeTruthy();
     });
 
-    it('should be call create controller by admin route and returns status 201', async () => {
+    it('should call create controller by admin route and returns status 201', async () => {
         const userData = new UserBuilder()
             .withName('Gabriel')
             .withEmail('gabriel@teste.com')
@@ -105,7 +105,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.create.notCalled).toBeTruthy();
     });
 
-    it('should be call controller findById with id returns status 200', async () => {
+    it('should call controller findById with id returns status 200', async () => {
         const id = v4();
 
         const token = await jwt.sign(
@@ -146,7 +146,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.findById.notCalled).toBeTruthy();
     });
 
-    it('should be call controller getAll with id returns status 200', async () => {
+    it('should call controller getAll with id returns status 200', async () => {
         const id = v4();
 
         const token = await jwt.sign(
@@ -171,7 +171,7 @@ describe('User Route context', () => {
         ).toBeTruthy();
     });
 
-    it('should be call controller getAll by admin route with id returns status 200', async () => {
+    it('should call controller getAll by admin route with id returns status 200', async () => {
         const id = v4();
 
         const token = await jwt.sign(
@@ -219,7 +219,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.getAll.notCalled).toBeTruthy();
     });
 
-    it('should be call update controller with user data and returns status 200', async () => {
+    it('should call update controller with user data and returns status 200', async () => {
         const id = v4();
 
         const updateData = new UserBuilder()
@@ -295,7 +295,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.update.notCalled).toBeTruthy();
     });
 
-    it('should be call controller activate with id returns status 200', async () => {
+    it('should call controller activate with id returns status 200', async () => {
         const id = v4();
 
         const token = await jwt.sign(
@@ -335,7 +335,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.activate.notCalled).toBeTruthy();
     });
 
-    it('should be call controller inactivate with id returns status 200', async () => {
+    it('should call controller inactivate with id returns status 200', async () => {
         const id = v4();
         const token = await jwt.sign(
             { id, is_admin: false },
@@ -356,7 +356,7 @@ describe('User Route context', () => {
         expect(userServiceSpy.inactivate.calledWithExactly(id)).toBeTruthy();
     });
 
-    it('should not call controller inactivate - Token not provided', async () => {
+    it('should call controller inactivate - Token not provided', async () => {
         const res = await request(app).put(`/api/user/inactivate`);
 
         expect(res.status).toBe(401);
