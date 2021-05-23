@@ -1,0 +1,23 @@
+{
+  "PaginationResponse": {
+    "properties":{
+      "count":{
+        "type":"number",
+        "example": 1
+      },
+      "limit":{
+        "type":"number",
+        "example": 50
+      },
+      "page":{
+        "type":"number",
+        "example": 1,
+        "required": true
+      },
+      "totalPages":{
+        "type":"number",
+        "example": 1
+      }
+    }
+  }
+}

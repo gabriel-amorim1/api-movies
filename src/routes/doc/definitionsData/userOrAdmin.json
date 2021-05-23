@@ -1,0 +1,101 @@
+{
+    "UserOrAdmin": {
+        "properties": {
+            "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "fbe188ea-5ade-44dd-9776-eddd8105832e"
+            },
+            "name": {
+                "type": "string",
+                "example": "Gabriel"
+            },
+            "email": {
+                "type": "string",
+                "format": "email",
+                "example": "gabriel@movies.com"
+            },
+            "is_active": {
+                "type": "boolean",
+                "example": true
+            },
+            "created_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            },
+            "updated_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            }
+        }
+    },
+    "UserOrAdminCreate": {
+        "required": [
+            "name",
+            "email",
+            "password"
+        ],
+        "properties": {
+            "name": {
+                "type": "string",
+                "example": "Gabriel"
+            },
+            "email": {
+                "type": "string",
+                "format": "email",
+                "example": "gabriel@movies.com"
+            },
+            "password": {
+                "type": "string",
+                "minLength": 6,
+                "example": "123456"
+            }
+        }
+    },
+    "UserOrAdminUpdate": {
+        "properties": {
+            "name": {
+                "type": "string",
+                "example": "Gabriel"
+            },
+            "email": {
+                "type": "string",
+                "format": "email",
+                "example": "gabriel@movies.com"
+            },
+            "password": {
+                "type": "string",
+                "minLength": 6,
+                "example": "123456"
+            }
+        }
+    },
+    "UserOrAdminGetAll": {
+        "properties": {
+            "data": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/UserOrAdmin"
+                }
+            },
+            "count": {
+                "type": "number",
+                "example": 1
+            },
+            "limit": {
+                "type": "number",
+                "example": 20
+            },
+            "page": {
+                "type": "number",
+                "example": 1
+            },
+            "totalPages": {
+                "type": "number",
+                "example": 1
+            }
+        }
+    }
+}

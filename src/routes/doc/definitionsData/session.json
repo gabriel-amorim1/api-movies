@@ -1,0 +1,46 @@
+{
+    "Session": {
+        "properties": {
+            "user": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "fbe188ea-5ade-44dd-9776-eddd8105832e"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Gabriel"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "gabriel@movies.com"
+                    }
+                }
+            },
+            "token": {
+                "type": "string",
+                "format": "Bearer"
+            }
+        }
+    },
+    "SessionCreate": {
+        "required": [
+            "email",
+            "password"
+        ],
+        "properties": {
+            "email": {
+                "type": "string",
+                "format": "email",
+                "example": "gabriel@movies.com"
+            },
+            "password": {
+                "type": "string",
+                "minLength": 6,
+                "example": "123456"
+            }
+        }
+    }
+}
