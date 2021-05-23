@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
 import User from '../../../database/entities/User';
