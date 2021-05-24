@@ -7,6 +7,7 @@ import {
     MovieWithVotesAverageInterface,
 } from '../interfaces/MovieInterface';
 import IMovieRepository from '../interfaces/repositories/IMovieRepository';
+import IUserRepository from '../interfaces/repositories/IUserRepository';
 import { buildFilterGetAll } from '../utils/dataBase/filters';
 import { buildPaginatedGetAll } from '../utils/dataBase/pagination';
 import { HttpError } from '../utils/errors/HttpError';
@@ -16,9 +17,22 @@ class MovieService {
     constructor(
         @inject('MovieRepository')
         private movieRepository: IMovieRepository,
+
+        @inject('UserRepository')
+        private userRepository: IUserRepository,
     ) {}
 
-    public async create(movieData: MovieInterface): Promise<Movie> {
+    public async create(movieData: MovieInterface, user_id: string): Promise<Movie> {
+        const user = await this.userRepository.findById(user_id);
+
+        if (!user) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
+
         const createdMovie = await this.movieRepository.createAndSave(movieData);
 
         return createdMovie;
@@ -67,7 +81,21 @@ class MovieService {
         });
     }
 
-    public async update(id: string, updateData: MovieInterface): Promise<Movie> {
+    public async update(
+        id: string,
+        updateData: MovieInterface,
+        user_id: string,
+    ): Promise<Movie> {
+        const user = await this.userRepository.findById(user_id);
+
+        if (!user) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
+
         const movieFound = await this.findById(id);
 
         const movieUpdated = await this.movieRepository.createAndSave(
@@ -77,7 +105,17 @@ class MovieService {
         return movieUpdated;
     }
 
-    public async remove(id: string): Promise<DeleteResult> {
+    public async remove(id: string, user_id: string): Promise<DeleteResult> {
+        const user = await this.userRepository.findById(user_id);
+
+        if (!user) {
+            throw new HttpError(404, 'User not found');
+        }
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
+
         await this.findById(id);
 
         return this.movieRepository.remove(id);

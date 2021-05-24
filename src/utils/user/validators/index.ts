@@ -17,4 +17,5 @@ export const getAllUserSchema = yup.object().shape({
     ...getAllRequestSchema.fields,
     name: yup.string().optional(),
     email: yup.string().optional(),
+    is_active: yup.boolean().optional(),
 });

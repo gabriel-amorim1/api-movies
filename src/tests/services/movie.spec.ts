@@ -1,16 +1,31 @@
 import { v4 } from 'uuid';
 import Movie from '../../database/entities/Movie';
+import User from '../../database/entities/User';
 import { MovieInterface } from '../../interfaces/MovieInterface';
 import MovieService from '../../services/MovieService';
 import { HttpError } from '../../utils/errors/HttpError';
+import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import MovieBuilder from '../testBuilders/MovieBuilder';
-import { makeMovieService } from './makeInstance/movie';
+import UserBuilder from '../testBuilders/UserBuilder';
+import { fakeUserRepository, makeMovieService } from './makeInstance/movie';
 
 describe('Movie Service context', () => {
+    let userRepository: FakeUserRepository;
     let movieService: MovieService;
+
+    let user: User;
 
     beforeAll(async () => {
         movieService = makeMovieService;
+        userRepository = fakeUserRepository;
+
+        const userBuild = new UserBuilder()
+            .withName('Create Test')
+            .withEmail(`${v4()}@teste.com`)
+            .withPassword('password')
+            .build();
+
+        user = await userRepository.createAndSave(userBuild);
     });
 
     const makeSut = async (movieData?: Partial<MovieInterface>): Promise<Movie> => {
@@ -21,7 +36,7 @@ describe('Movie Service context', () => {
             .withActors('actors')
             .build();
 
-        return movieService.create(Object.assign(movieBuild, movieData));
+        return movieService.create(Object.assign(movieBuild, movieData), user.id);
     };
 
     it('should be able to create new Movie', async () => {
@@ -33,7 +48,7 @@ describe('Movie Service context', () => {
             .build();
 
         const { id, created_at, updated_at, ...entityProps } =
-            await movieService.create(movieBuild);
+            await movieService.create(movieBuild, user.id);
 
         const expectedRes = {
             director: movieBuild.director,
@@ -89,7 +104,7 @@ describe('Movie Service context', () => {
             .withActors('actors update')
             .build();
 
-        const movieUpdated = await movieService.update(sut.id, updateData);
+        const movieUpdated = await movieService.update(sut.id, updateData, user.id);
 
         const expectedRes = {
             ...sut,
@@ -108,7 +123,7 @@ describe('Movie Service context', () => {
         expect.hasAssertions();
 
         try {
-            await movieService.update(v4(), <any>{});
+            await movieService.update(v4(), <any>{}, user.id);
         } catch (error) {
             expect(error).toBeInstanceOf(HttpError);
             expect(error.code).toBe(404);
@@ -119,7 +134,7 @@ describe('Movie Service context', () => {
     it('should be able to remove Movie by Id', async () => {
         const sut = await makeSut();
 
-        const res = await movieService.remove(sut.id);
+        const res = await movieService.remove(sut.id, user.id);
 
         expect(res).toEqual({ affected: 1, raw: [] });
     });

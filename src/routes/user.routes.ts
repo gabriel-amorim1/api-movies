@@ -48,6 +48,9 @@ router.get('/profile', UserController.findById);
  *         name: email
  *         type: string
  *       - in: query
+ *         name: is_active
+ *         type: boolean
+ *       - in: query
  *         name: page
  *         type: number
  *       - in: query
@@ -96,6 +99,9 @@ router.get('/list', UserController.getAll);
  *       - in: query
  *         name: size
  *         type: number
+ *       - in: query
+ *         name: is_active
+ *         type: boolean
  *       - in: query
  *         name: sortParam
  *         type: string

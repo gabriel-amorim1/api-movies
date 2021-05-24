@@ -60,6 +60,10 @@ class UserService {
     ): Promise<UserResponseInterface> {
         const userFound = await this.findById(id, true);
 
+        if (userFound.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
+
         if (updateData.email && updateData.email !== userFound.email) {
             await this.verifyIfEmailIsAlreadyRegistered(updateData.email);
         }

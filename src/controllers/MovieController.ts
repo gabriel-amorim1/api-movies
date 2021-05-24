@@ -27,7 +27,7 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
 
         const movieService = container.resolve(MovieService);
 
-        const response = await movieService.create(body);
+        const response = await movieService.create(body, req.user.id);
 
         return res.status(201).json(response);
     } catch (error) {
@@ -80,7 +80,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
         })) as MovieInterface;
 
         const movieService = container.resolve(MovieService);
-        const response = await movieService.update(id, movieUpdate);
+        const response = await movieService.update(id, movieUpdate, req.user.id);
 
         return res.status(200).json(response);
     } catch (error) {
@@ -100,7 +100,7 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
         });
 
         const movieService = container.resolve(MovieService);
-        await movieService.remove(id);
+        await movieService.remove(id, req.user.id);
 
         return res.status(204).json();
     } catch (error) {

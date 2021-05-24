@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { DeleteResult } from 'typeorm';
+import User from '../database/entities/User';
 import Vote from '../database/entities/Vote';
 import IMovieRepository from '../interfaces/repositories/IMovieRepository';
 import IUserRepository from '../interfaces/repositories/IUserRepository';
@@ -30,6 +31,10 @@ class VoteService {
 
         if (!user) {
             throw new HttpError(404, 'User not found');
+        }
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
         }
 
         const movie = await this.movieRepository.findById(voteData.movie_id);
@@ -72,6 +77,12 @@ class VoteService {
     public async update(id: string, updateData: VoteInterface): Promise<Vote> {
         const voteFound = await this.findById(id);
 
+        const user = (await this.userRepository.findById(voteFound.user_id)) as User;
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
+
         if (voteFound.user_id !== updateData.user_id) {
             throw new HttpError(401, 'Unauthorized - Only owner can edit vote');
         }
@@ -89,6 +100,12 @@ class VoteService {
         is_admin: boolean,
     ): Promise<DeleteResult> {
         const vote = await this.findById(id);
+
+        const user = (await this.userRepository.findById(user_id)) as User;
+
+        if (user.is_active === false) {
+            throw new HttpError(401, 'Unauthorized - This account is inactive');
+        }
 
         if (vote.user_id !== user_id && is_admin === false) {
             throw new HttpError(

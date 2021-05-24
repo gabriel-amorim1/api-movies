@@ -46,7 +46,7 @@ describe('Movie Route context', () => {
         expect(res.status).toBe(201);
         expect(res.body).toStrictEqual(movieData);
         expect(
-            movieServiceSpy.create.calledWithExactly(<any>movieData),
+            movieServiceSpy.create.calledWithExactly(<any>movieData, id),
         ).toBeTruthy();
     });
 
@@ -233,7 +233,7 @@ describe('Movie Route context', () => {
         expect(res.status).toBe(200);
         expect(res.body).toStrictEqual(updateData);
         expect(
-            movieServiceSpy.update.calledWithExactly(idMovie, updateData),
+            movieServiceSpy.update.calledWithExactly(idMovie, updateData, id),
         ).toBeTruthy();
     });
 
@@ -330,7 +330,7 @@ describe('Movie Route context', () => {
             .set('Authorization', `bearer ${token}`);
 
         expect(res.status).toBe(204);
-        expect(movieServiceSpy.remove.calledWithExactly(idMovie)).toBeTruthy();
+        expect(movieServiceSpy.remove.calledWithExactly(idMovie, id)).toBeTruthy();
     });
 
     it('should not call controller remove and returns status 401 when user is not admin', async () => {

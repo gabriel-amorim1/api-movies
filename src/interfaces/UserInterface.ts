@@ -29,6 +29,7 @@ export interface UserRequestGetAllInterface extends RequestGetAllInterface {
     name?: string;
     email?: string;
     is_admin?: boolean;
+    is_active?: boolean;
 }
 
 export interface UserResponseInterface {
