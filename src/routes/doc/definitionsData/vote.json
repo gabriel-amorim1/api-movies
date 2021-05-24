@@ -1,0 +1,97 @@
+{
+    "Vote": {
+        "properties": {
+            "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "fbe188ea-5ade-44dd-9776-eddd8105832e"
+            },
+            "user_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "b8fb59f2-fd4c-4220-b26d-db7d74ee6b7f"
+            },
+            "movie_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "f6a5011d-133a-459a-81a4-34ed0035c21f"
+            },
+            "rating": {
+                "type": "number",
+                "min": 0,
+                "max": 4,
+                "example": 4
+            },
+            "created_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            },
+            "updated_at": {
+                "type": "string",
+                "format": "data",
+                "example": "2021-01-19T19:11:43.000Z"
+            }
+        }
+    },
+    "VoteCreate": {
+        "required": [
+            "movie_id",
+            "rating"
+        ],
+        "properties": {
+            "movie_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "f6a5011d-133a-459a-81a4-34ed0035c21f"
+            },
+            "rating": {
+                "type": "number",
+                "min": 0,
+                "max": 4,
+                "example": 4
+            }
+        }
+    },
+    "VoteUpdate": {
+        "properties": {
+            "movie_id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "f6a5011d-133a-459a-81a4-34ed0035c21f"
+            },
+            "rating": {
+                "type": "number",
+                "min": 0,
+                "max": 4,
+                "example": 4
+            }
+        }
+    },
+    "VoteGetAll": {
+        "properties": {
+            "data": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Vote"
+                }
+            },
+            "count": {
+                "type": "number",
+                "example": 1
+            },
+            "limit": {
+                "type": "number",
+                "example": 20
+            },
+            "page": {
+                "type": "number",
+                "example": 1
+            },
+            "totalPages": {
+                "type": "number",
+                "example": 1
+            }
+        }
+    }
+}
