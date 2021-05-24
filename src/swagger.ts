@@ -7,7 +7,7 @@ const swaggerDefinition = {
         title: 'API Movies',
         version: '1.0.0',
     },
-    host: process.env.HOST || 'localhost:3333',
+    host: process.env.HOST || 'localhost:3000',
     basePath: '/',
 } as SwaggerDefinition;
 

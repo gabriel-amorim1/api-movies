@@ -4,7 +4,7 @@ import app from './app';
 import connect from './database/connection';
 import './containers';
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3000;
 
 async function startServer() {
     connect();
