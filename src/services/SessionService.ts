@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
-
+import IUserRepository from '../interfaces/repositories/IUserRepository';
 import { SessionResponseInterface } from '../interfaces/SessionInterface';
-import * as sessionView from '../utils/views/sessions_view';
-import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
 import { HttpError } from '../utils/errors/HttpError';
+import * as sessionView from '../utils/views/sessions_view';
 
 @injectable()
 class SessionService {

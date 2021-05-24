@@ -4,8 +4,10 @@ import {
     BeforeUpdate,
     Column,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import Vote from './Vote';
 
 @Entity('users')
 export default class User {
@@ -34,6 +36,9 @@ export default class User {
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     updated_at: Date;
+
+    @OneToMany(() => Vote, vote => vote.user, { eager: true })
+    votes?: Vote[];
 
     @BeforeInsert()
     @BeforeUpdate()

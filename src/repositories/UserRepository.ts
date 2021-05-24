@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 import User from '../database/entities/User';
 import { OptionsTypeOrmGetAll } from '../interfaces/pagination';
-import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
+import IUserRepository from '../interfaces/repositories/IUserRepository';
 import { UserInterface } from '../interfaces/UserInterface';
 
 export default class UserRepository implements IUserRepository {

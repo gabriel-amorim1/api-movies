@@ -1,12 +1,12 @@
 import { Request, Response, Router } from 'express';
-
 import * as swaggerUi from 'swagger-ui-express';
-import { swaggerSpec } from '../swagger';
-import apiUser from './user.routes';
 import * as UserController from '../controllers/UserController';
+import { swaggerSpec } from '../swagger';
 import authMiddleware from '../utils/middleware/auth';
-import apiSession from './session.routes';
 import apiMovie from './movie.routes';
+import apiSession from './session.routes';
+import apiUser from './user.routes';
+import apiVote from './vote.routes';
 
 const router = Router();
 
@@ -95,5 +95,6 @@ router.use(authMiddleware);
 
 router.use('/api/user', apiUser);
 router.use('/api/movie', apiMovie);
+router.use('/api/vote', apiVote);
 
 export default router;

@@ -35,7 +35,7 @@ describe('Movie Repository Context', () => {
 
         const movieFound = await movieRepository.findById(createdMovie.id);
 
-        expect(createdMovie).toEqual(movieFound);
+        expect({ ...createdMovie, votes: [] }).toEqual(movieFound);
     });
 
     it('should be able to get all movies', async () => {

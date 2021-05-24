@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import Movie from '../../../database/entities/Movie';
 import { MovieInterface } from '../../../interfaces/MovieInterface';
 import { OptionsTypeOrmGetAll } from '../../../interfaces/pagination';
-import IMovieRepository from '../../../interfaces/repositories.ts/IMovieRepository';
+import IMovieRepository from '../../../interfaces/repositories/IMovieRepository';
 
 export default class FakeMovieRepository implements IMovieRepository {
     private movies: Movie[] = [];

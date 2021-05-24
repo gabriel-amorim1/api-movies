@@ -3,7 +3,7 @@ import Movie from '../database/entities/Movie';
 import User from '../database/entities/User';
 import { MovieInterface } from '../interfaces/MovieInterface';
 import { OptionsTypeOrmGetAll } from '../interfaces/pagination';
-import IMovieRepository from '../interfaces/repositories.ts/IMovieRepository';
+import IMovieRepository from '../interfaces/repositories/IMovieRepository';
 
 export default class MovieRepository implements IMovieRepository {
     private ormRepository: Repository<Movie>;

@@ -53,7 +53,7 @@ describe('Movie Service context', () => {
 
         const movieFound = await movieService.findById(sut.id);
 
-        expect(sut).toEqual(movieFound);
+        expect({ ...sut, votes_average: 0 }).toEqual(movieFound);
     });
 
     it('should not be able to find Movie by Id - Movie not found', async () => {
@@ -98,6 +98,7 @@ describe('Movie Service context', () => {
             genre: updateData.genre,
             actors: updateData.actors,
             updated_at: movieUpdated.updated_at,
+            votes_average: 0,
         };
 
         expect(movieUpdated).toEqual(expectedRes);

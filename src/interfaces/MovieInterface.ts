@@ -17,3 +17,14 @@ export interface MovieRequestGetAllInterface extends RequestGetAllInterface {
     genre?: string;
     actors?: string;
 }
+
+export interface MovieWithVotesAverageInterface {
+    id: string;
+    director: string;
+    name: string;
+    genre: string;
+    actors: string;
+    votes_average: number;
+    created_at: Date;
+    updated_at: Date;
+}

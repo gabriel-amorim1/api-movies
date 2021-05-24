@@ -55,7 +55,7 @@ describe('User Repository Context', () => {
 
         const userFound = await userRepository.findById(createdUser.id);
 
-        expect(createdUser).toEqual(userFound);
+        expect({ ...createdUser, votes: [] }).toEqual(userFound);
     });
 
     it('should be able to find user by id and returns hidden columns', async () => {
@@ -74,7 +74,7 @@ describe('User Repository Context', () => {
 
         const userFound = await userRepository.findByEmail(createdUser.email);
 
-        expect(createdUser).toEqual(userFound);
+        expect({ ...createdUser, votes: [] }).toEqual(userFound);
     });
 
     it('should be able to find user by email and returns hidden columns', async () => {

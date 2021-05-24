@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import * as MovieController from '../controllers/MovieController';
+import * as VoteController from '../controllers/VoteController';
 
 const router = Router();
 
 /**
  * @swagger
- * /api/movie:
+ * /api/vote:
  *   post:
  *     tags:
- *       - Movie
- *     description: Create new Movie
+ *       - Vote
+ *     description: Create new Vote
  *     produces:
  *       - application/json
  *     parameters:
@@ -17,28 +17,28 @@ const router = Router();
  *         name: token
  *         type: string
  *         required: true
- *       - name: Movie
- *         description: JSON with Movie attributes.
+ *       - name: Vote
+ *         description: JSON with Vote attributes.
  *         in: body
  *         required: true
  *         schema:
- *            $ref: '#/definitions/MovieCreate'
+ *            $ref: '#/definitions/VoteCreate'
  *     responses:
  *       '201':
- *         description: Movie was created successfully.
+ *         description: Vote was created successfully.
  *         schema:
- *           $ref: '#/definitions/Movie'
+ *           $ref: '#/definitions/Vote'
  */
 
-router.post('/', MovieController.create);
+router.post('/', VoteController.create);
 
 /**
  * @swagger
- * /api/movie:
+ * /api/vote:
  *   get:
  *     tags:
- *       - Movie
- *     description: List all Movies
+ *       - Vote
+ *     description: List all Votes
  *     produces:
  *       - application/json
  *     parameters:
@@ -74,20 +74,20 @@ router.post('/', MovieController.create);
  *         enum: [asc, desc, ASC, DESC]
  *     responses:
  *       '200':
- *         description: A list of Movies was returned successfully.
+ *         description: A list of Votes was returned successfully.
  *         schema:
- *           $ref: '#/definitions/MovieGetAll'
+ *           $ref: '#/definitions/VoteGetAll'
  */
 
-router.get('/', MovieController.getAll);
+router.get('/', VoteController.getAll);
 
 /**
  * @swagger
- * /api/movie/:movieId:
+ * /api/vote/:voteId:
  *   get:
  *     tags:
- *       - Movie
- *     description: Find Movie by Id
+ *       - Vote
+ *     description: Find Vote by Id
  *     produces:
  *       - application/json
  *     parameters:
@@ -96,25 +96,25 @@ router.get('/', MovieController.getAll);
  *         type: string
  *         required: true
  *       - in: path
- *         name: movieId
+ *         name: voteId
  *         type: uuid
  *         required: true
  *     responses:
  *       '200':
- *         description: Movie was returned successfully.
+ *         description: Vote was returned successfully.
  *         schema:
- *           $ref: '#/definitions/Movie'
+ *           $ref: '#/definitions/Vote'
  */
 
-router.get('/:id', MovieController.findById);
+router.get('/:id', VoteController.findById);
 
 /**
  * @swagger
- * /api/movie/:movieId:
+ * /api/vote/:voteId:
  *   put:
  *     tags:
- *       - Movie
- *     description: Update Movie
+ *       - Vote
+ *     description: Update Vote
  *     produces:
  *       - application/json
  *     parameters:
@@ -123,30 +123,30 @@ router.get('/:id', MovieController.findById);
  *         type: string
  *         required: true
  *       - in: path
- *         name: movieId
+ *         name: voteId
  *         type: uuid
  *         required: true
- *       - name: Movie
- *         description: JSON with Movie attributes.
+ *       - name: Vote
+ *         description: JSON with Vote attributes.
  *         in: body
  *         schema:
- *            $ref: '#/definitions/MovieUpdate'
+ *            $ref: '#/definitions/VoteUpdate'
  *     responses:
  *       '200':
- *         description: Movie was updated successfully.
+ *         description: Vote was updated successfully.
  *         schema:
- *           $ref: '#/definitions/Movie'
+ *           $ref: '#/definitions/Vote'
  */
 
-router.put('/:id', MovieController.update);
+router.put('/:id', VoteController.update);
 
 /**
  * @swagger
- * /api/movie/:movieId:
+ * /api/vote/:voteId:
  *   delete:
  *     tags:
- *       - Movie
- *     description: Remove Movie
+ *       - Vote
+ *     description: Remove Vote
  *     produces:
  *       - application/json
  *     parameters:
@@ -155,14 +155,14 @@ router.put('/:id', MovieController.update);
  *         type: string
  *         required: true
  *       - in: path
- *         name: movieId
+ *         name: voteId
  *         type: uuid
  *         required: true
  *     responses:
  *       '204':
- *         description: Movie was removed successfully.
+ *         description: Vote was removed successfully.
  */
 
-router.delete('/:id', MovieController.remove);
+router.delete('/:id', VoteController.remove);
 
 export default router;

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Vote from './Vote';
 
 @Entity('movies')
 export default class Movie {
@@ -22,4 +23,7 @@ export default class Movie {
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     updated_at: Date;
+
+    @OneToMany(() => Vote, vote => vote.movie, { eager: true })
+    votes?: Vote[];
 }

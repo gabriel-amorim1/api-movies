@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 import User from '../database/entities/User';
-import IUserRepository from '../interfaces/repositories.ts/IUserRepository';
+import IUserRepository from '../interfaces/repositories/IUserRepository';
 import {
     UpdateUserInterface,
     UserInterface,
