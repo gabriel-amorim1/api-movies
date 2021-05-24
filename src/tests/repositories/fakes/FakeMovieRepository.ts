@@ -33,10 +33,7 @@ export default class FakeMovieRepository implements IMovieRepository {
         return this.movies[index];
     }
 
-    public async findById(
-        id: string,
-        showPassword?: boolean,
-    ): Promise<Movie | undefined> {
+    public async findById(id: string): Promise<Movie | undefined> {
         return this.movies.find(movie => movie.id === id);
     }
 
