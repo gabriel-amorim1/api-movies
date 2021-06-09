@@ -1,6 +1,6 @@
 # api-movies
 
-## Ambiente:
+## Requisitos
 
 -   Node + NPM;
 -   Banco de dados do tipo postgres
