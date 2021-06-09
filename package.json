@@ -8,6 +8,7 @@
     "build": "tsc && npm run copy:doc",
     "copy:doc": "cp -r ./src/routes/doc/definitionsData ./dist/routes/doc/",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' -T src/server.ts",
+    "start": "node dist/server.js",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "m:generate": "npm run typeorm migration:generate -- -n",
     "m:run": "npm run typeorm migration:run",
