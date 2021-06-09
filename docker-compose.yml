@@ -1,0 +1,41 @@
+version: '3'
+services:
+    app:
+        build:
+            dockerfile: Dockerfile
+            context: .
+        image: gabriel-amorim1/api-movies
+        container_name: api-movies
+        ports:
+            - "3000:3000"
+        environment:
+            DB_HOST: postgresdb
+            DB_PORT: 5432
+            DB_USER: postgres
+            DB_PASSWORD: postgres
+            DB_NAME: api-movies
+        networks:
+            - production-network
+        depends_on:
+            - "postgresdb"
+
+    postgresdb:
+        image: postgres:lts-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: api-movies
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        networks:
+            - production-network
+
+volumes:
+    pgdata:
+
+networks:
+    production-network:
+        driver: bridge
